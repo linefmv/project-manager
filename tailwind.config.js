@@ -31,6 +31,16 @@ export default {
                 toggle: {
                     background: '#53525D',
                 },
+                error: {
+                    border: '#C40000',
+                    text: '#C40000',
+                    label: '#9F0000',
+                },
+                button: {
+                    submitDisabled: '#B2A8FF',
+                    submit: '#695CCD',
+                    submitHover: '#5348B2',
+                },
             },
             fontFamily: {
                 sans: ['Encode Sans Semi Expanded', 'system-ui', 'sans-serif'],

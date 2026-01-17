@@ -1,12 +1,13 @@
-import { ComponentProps } from 'react'
+import { Link } from 'react-router-dom'
 import { Plus } from 'lucide-react'
 import { twMerge } from 'tailwind-merge'
 
-interface NewProjectButtonProps extends ComponentProps<'button'> {
+interface NewProjectButtonProps {
     size?: 'default' | 'large'
+    className?: string
 }
 
-export function NewProjectButton({ className, size = 'default', ...props }: NewProjectButtonProps) {
+export function NewProjectButton({ className, size = 'default' }: NewProjectButtonProps) {
     const baseStyles = "flex items-center justify-center gap-2 bg-primary-purple text-white rounded-button hover:bg-opacity-90 transition-all group"
 
     const sizeStyles = {
@@ -15,14 +16,14 @@ export function NewProjectButton({ className, size = 'default', ...props }: NewP
     }
 
     return (
-        <button
+        <Link
+            to="/projects/new"
             className={twMerge(baseStyles, sizeStyles[size], className)}
-            {...props}
         >
             <div className="bg-transparent border border-white rounded-full p-[2px] transition-transform group-hover:scale-110">
                 <Plus size={16} strokeWidth={3} />
             </div>
             <span className="font-normal">Novo projeto</span>
-        </button>
+        </Link>
     )
 }
