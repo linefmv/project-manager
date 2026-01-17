@@ -34,6 +34,7 @@ export default {
             },
             fontFamily: {
                 sans: ['Encode Sans Semi Expanded', 'system-ui', 'sans-serif'],
+                brand: ['Encode Sans Expanded', 'sans-serif'],
             },
             borderRadius: {
                 'card': '16px',
