@@ -1,7 +1,7 @@
 import { Breadcrumb } from '../../components/Breadcrumb/Breadcrumb'
 import { ProjectCard } from '../../components/ProjectCard/ProjectCard'
 import { DeleteModal } from '../../components/DeleteModal/DeleteModal'
-import { ProjectCardSkeleton } from '../../components/Skeleton'
+
 import { ProjectGrid } from '../../components/ProjectGrid'
 import { PageContainer } from '../../components/PageContainer'
 import { useSearchResults } from './useSearchResults'
@@ -43,11 +43,9 @@ export function SearchResults() {
                 <div className="mb-8">
                     <Breadcrumb title="Resultado da busca" onBack={handleBack} />
                 </div>
-                <ProjectGrid>
-                    {Array.from({ length: 4 }).map((_, index) => (
-                        <ProjectCardSkeleton key={index} />
-                    ))}
-                </ProjectGrid>
+                <div className="flex flex-col items-center justify-center min-h-[400px]">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-[3px] border-primary-purple" />
+                </div>
             </PageContainer>
         )
     }
