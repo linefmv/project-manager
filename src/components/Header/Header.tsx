@@ -19,7 +19,7 @@ export function Header() {
                                 className="flex items-center justify-center gap-3 pointer-events-auto hover:opacity-90 transition-opacity"
                             >
                                 <img
-                                    src="/logo.svg"
+                                    src={`${import.meta.env.BASE_URL}logo.svg`}
                                     alt="Logo"
                                     className="h-14 w-14"
                                 />
