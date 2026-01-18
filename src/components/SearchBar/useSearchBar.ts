@@ -30,6 +30,18 @@ export function useSearchBar(onClose: () => void) {
 
     useEscapeKey(onClose)
 
+    // Busca em tempo real após 3 caracteres com debounce
+    useEffect(() => {
+        if (query.trim().length < 3) return
+
+        const timeoutId = setTimeout(() => {
+            navigate(`/search?q=${encodeURIComponent(query.trim())}`)
+            setShowHistory(false)
+        }, 300)
+
+        return () => clearTimeout(timeoutId)
+    }, [query, navigate])
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         if (!isValidQuery) return
