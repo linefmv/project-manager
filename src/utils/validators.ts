@@ -14,17 +14,17 @@ export const validateClient = (value: string): string | boolean => {
 
 export const validateStartDate = (value: string, minDate: string): string | boolean => {
     if (value < minDate) {
-        return 'A data não pode ser no passado'
+        return 'Selecione uma data válida'
     }
     return true
 }
 
 export const validateEndDate = (value: string, minDate: string, startDateValue?: string): string | boolean => {
     if (value < minDate) {
-        return 'A data não pode ser no passado'
+        return 'Selecione uma data válida'
     }
     if (startDateValue && value < startDateValue) {
-        return 'A data final deve ser após a data de início'
+        return 'Selecione uma data válida'
     }
     return true
 }
