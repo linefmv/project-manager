@@ -19,7 +19,7 @@ export const CalendarIcon = ({ className = '', size = 24, variant = 'start' }: C
             <line x1="7" y1="3" x2="7" y2="7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
             <line x1="17" y1="3" x2="17" y2="7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
             {variant === 'start' ? (
-                <rect x="7" y="14" width="5" height="5" fill="currentColor" />
+                <rect x="7" y="14" width="5" height="5" stroke="currentColor" strokeWidth="1.5" fill="none" />
             ) : (
                 <polyline points="9,15 11,17 15,13" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
             )}
