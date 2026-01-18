@@ -15,7 +15,6 @@ export function SearchResults() {
         isError,
         isDeleting,
         deleteModalState,
-        isTogglingFavorite,
         handleToggleFavorite,
         handleEdit,
         handleOpenDeleteModal,
@@ -100,7 +99,6 @@ export function SearchResults() {
                             endDate={project.endDate}
                             coverImage={project.coverImage}
                             isFavorite={project.favorite}
-                            isTogglingFavorite={isTogglingFavorite(project.id)}
                             searchQuery={query}
                             onToggleFavorite={handleToggleFavorite}
                             onEdit={handleEdit}

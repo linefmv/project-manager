@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, keepPreviousData } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { getProjects } from '../../services/api'
 import { useProjectActions } from '../../hooks/useProjectActions'
@@ -14,6 +14,7 @@ export function useProjects() {
     const { data, isLoading, isFetching, isError } = useQuery({
         queryKey: ['projects', { sort: sortOption, favorite: showFavoritesOnly || undefined }],
         queryFn: () => getProjects({ sort: sortOption, favorite: showFavoritesOnly || undefined }),
+        placeholderData: keepPreviousData,
     })
 
     const projects = useMemo((): Project[] => data?.projects || [], [data])

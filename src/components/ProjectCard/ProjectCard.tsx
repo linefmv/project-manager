@@ -13,7 +13,6 @@ interface ProjectCardProps {
     endDate: string
     coverImage?: string
     isFavorite: boolean
-    isTogglingFavorite?: boolean
     searchQuery?: string
     onToggleFavorite: (id: string) => void
     onEdit: (id: string) => void
@@ -28,7 +27,6 @@ export function ProjectCard({
     endDate,
     coverImage,
     isFavorite,
-    isTogglingFavorite = false,
     searchQuery,
     onToggleFavorite,
     onEdit,
@@ -60,8 +58,7 @@ export function ProjectCard({
                 <div className="absolute bottom-3 right-4 flex items-center gap-2">
                     <button
                         onClick={() => onToggleFavorite(id)}
-                        disabled={isTogglingFavorite}
-                        className={`drop-shadow-md transition-transform ${isTogglingFavorite ? 'animate-pulse scale-110' : 'hover:scale-110'}`}
+                        className="drop-shadow-md transition-transform hover:scale-110"
                         aria-label={isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
                     >
                         <StarIcon
@@ -91,7 +88,7 @@ export function ProjectCard({
             </div>
 
             <div className="bg-white border border-border-default border-t-0 rounded-b-[16px] p-6">
-                <h3 className="font-semibold text-xl leading-[25px] text-text-title mb-2">
+                <h3 className="font-bold text-xl leading-[25px] text-text-title mb-2">
                     {searchQuery ? highlightText(name, searchQuery) : name}
                 </h3>
 

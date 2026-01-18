@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { deleteProject, toggleFavorite } from '../services/api'
@@ -17,7 +17,6 @@ interface UseProjectActionsOptions {
 export function useProjectActions({ projects, queryKeysToInvalidate }: UseProjectActionsOptions) {
     const navigate = useNavigate()
     const queryClient = useQueryClient()
-    const togglingFavoriteId = useRef<string | null>(null)
 
     const [deleteModalState, setDeleteModalState] = useState<DeleteModalState>({
         isOpen: false,
@@ -37,27 +36,43 @@ export function useProjectActions({ projects, queryKeysToInvalidate }: UseProjec
     const favoriteMutation = useMutation({
         mutationFn: ({ id, favorite }: { id: string; favorite: boolean }) =>
             toggleFavorite(id, favorite),
-        onSuccess: () => {
+        onMutate: async ({ id, favorite }) => {
+            await queryClient.cancelQueries({ queryKey: ['projects'] })
+
+            const previousProjects = queryClient.getQueriesData({ queryKey: ['projects'] })
+
+            queryClient.setQueriesData({ queryKey: ['projects'] }, (old: { projects: Project[] } | undefined) => {
+                if (!old) return old
+                return {
+                    ...old,
+                    projects: old.projects.map(p =>
+                        p.id === id ? { ...p, favorite } : p
+                    )
+                }
+            })
+
+            return { previousProjects }
+        },
+        onError: (_err, _variables, context) => {
+            if (context?.previousProjects) {
+                context.previousProjects.forEach(([queryKey, data]) => {
+                    queryClient.setQueryData(queryKey, data)
+                })
+            }
+        },
+        onSettled: () => {
             queryKeysToInvalidate.forEach(key => {
                 queryClient.invalidateQueries({ queryKey: key })
             })
-        },
-        onSettled: () => {
-            togglingFavoriteId.current = null
         },
     })
 
     const handleToggleFavorite = useCallback((id: string) => {
         const project = projects.find(p => p.id === id)
         if (project) {
-            togglingFavoriteId.current = id
             favoriteMutation.mutate({ id, favorite: !project.favorite })
         }
     }, [projects, favoriteMutation])
-
-    const isTogglingFavorite = useCallback((id: string) => {
-        return togglingFavoriteId.current === id && favoriteMutation.isPending
-    }, [favoriteMutation.isPending])
 
     const handleEdit = (id: string) => {
         navigate(`/projects/${id}/edit`)
@@ -83,7 +98,6 @@ export function useProjectActions({ projects, queryKeysToInvalidate }: UseProjec
     return {
         deleteModalState,
         isDeleting: deleteMutation.isPending,
-        isTogglingFavorite,
         handleToggleFavorite,
         handleEdit,
         handleOpenDeleteModal,
