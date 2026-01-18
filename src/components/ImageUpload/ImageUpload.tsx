@@ -48,7 +48,7 @@ export function ImageUpload({ label, value, onChange, error }: ImageUploadProps)
                     onClick={handleClick}
                 >
                     <UploadIcon size={24} className="text-text-secondary" />
-                    <p className="text-base leading-[22px] text-text-secondary text-center max-w-sm">
+                    <p className="text-base leading-[22px] text-text-secondary text-center md:whitespace-nowrap">
                         Escolha uma imagem .jpg ou .png no seu dispositivo
                     </p>
                     <button
