@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef, useId } from 'react'
 import { CalendarIcon } from './CalendarIcon'
 
 interface FormDateInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -9,7 +9,10 @@ interface FormDateInputProps extends React.InputHTMLAttributes<HTMLInputElement>
 }
 
 export const FormDateInput = forwardRef<HTMLInputElement, FormDateInputProps>(
-    ({ label, error, required, variant = 'start', className = '', ...props }, ref) => {
+    ({ label, error, required, variant = 'start', className = '', id, ...props }, ref) => {
+        const generatedId = useId()
+        const inputId = id || generatedId
+
         const hasError = Boolean(error)
         const borderColor = hasError ? 'border-error-border' : 'border-border-input'
         const labelColor = hasError ? 'text-error-label' : 'text-primary-purple'
@@ -18,7 +21,7 @@ export const FormDateInput = forwardRef<HTMLInputElement, FormDateInputProps>(
 
         return (
             <div className="flex flex-col gap-2">
-                <label className="flex items-end gap-2">
+                <label htmlFor={inputId} className="flex items-end gap-2">
                     <span className={`text-lg leading-[22px] font-medium ${labelColor}`}>
                         {label}
                     </span>
@@ -30,6 +33,7 @@ export const FormDateInput = forwardRef<HTMLInputElement, FormDateInputProps>(
                 </label>
                 <div className="relative">
                     <input
+                        id={inputId}
                         ref={ref}
                         type="date"
                         className={`
