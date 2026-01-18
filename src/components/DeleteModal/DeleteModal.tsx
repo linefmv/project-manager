@@ -1,4 +1,5 @@
-import { useEffect, useCallback } from 'react'
+import { useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { TrashIcon } from '../Icons'
 import { useEscapeKey } from '../../hooks/useEscapeKey'
 
@@ -17,13 +18,9 @@ export function DeleteModal({
     onConfirm,
     isDeleting = false,
 }: DeleteModalProps) {
-    const handleEscape = useCallback(() => {
-        if (isOpen) {
-            onClose()
-        }
-    }, [isOpen, onClose])
-
-    useEscapeKey(handleEscape)
+    useEscapeKey(() => {
+        if (isOpen) onClose()
+    })
 
     useEffect(() => {
         if (isOpen) {
@@ -39,37 +36,39 @@ export function DeleteModal({
 
     if (!isOpen) return null
 
-    return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+    const modalContent = (
+        <div className="fixed inset-0 w-screen h-screen flex items-center justify-center z-[9999] backdrop-blur-[5px]">
             <div
-                className="absolute inset-0 bg-black/50"
                 onClick={onClose}
                 aria-hidden="true"
+                className="absolute inset-0 w-full h-full bg-[rgba(24,24,24,0.9)]"
             />
 
-            <div className="relative bg-white rounded-lg shadow-xl w-full max-w-md mx-4 p-6 md:p-8">
-                <div className="flex flex-col items-center text-center">
-                    <div className="w-16 h-16 rounded-full bg-primary-purple flex items-center justify-center mb-6">
-                        <TrashIcon size={32} className="text-white" />
-                    </div>
+            <div className="relative flex flex-col items-center">
+                <div className="w-14 h-14 rounded-full bg-primary-purple flex items-center justify-center relative z-10 -mb-7 shadow-md">
+                    <TrashIcon size={24} className="text-white" />
+                </div>
 
-                    <h2 className="text-xl font-semibold text-text-title mb-4">
+                <div className="relative bg-white rounded-lg flex flex-col items-center pt-11 pb-8 px-12">
+                    <h2 className="font-sans font-semibold text-xl leading-7 text-center text-primary-dark m-0">
                         Remover projeto
                     </h2>
 
-                    <p className="text-text-secondary mb-2">
+                    <div className="w-full h-px bg-[#8C8B93] mt-4" />
+
+                    <p className="font-sans font-normal text-sm leading-5 text-center text-text-secondary m-0 mt-4">
                         Essa ação removerá definitivamente o projeto:
                     </p>
 
-                    <p className="font-semibold text-text-primary mb-8">
+                    <p className="max-w-[350px] font-sans font-medium text-lg leading-6 text-center text-primary-darker m-0 mt-1 overflow-hidden text-ellipsis whitespace-nowrap">
                         {projectName}
                     </p>
 
-                    <div className="flex gap-4 w-full">
+                    <div className="flex justify-center items-center gap-4 mt-6">
                         <button
                             onClick={onClose}
                             disabled={isDeleting}
-                            className="flex-1 py-3 px-6 border border-primary-purple text-primary-purple rounded-button hover:bg-background-light transition-colors disabled:opacity-50"
+                            className="py-2.5 px-10 bg-white border border-primary-purple rounded-button font-sans font-normal text-base leading-[22px] text-primary-purple cursor-pointer transition-colors duration-200 hover:bg-background-light disabled:cursor-not-allowed disabled:opacity-50"
                         >
                             Cancelar
                         </button>
@@ -77,7 +76,7 @@ export function DeleteModal({
                         <button
                             onClick={onConfirm}
                             disabled={isDeleting}
-                            className="flex-1 py-3 px-6 bg-primary-purple text-white rounded-button hover:bg-primary-dark transition-colors disabled:opacity-50"
+                            className="py-2.5 px-10 bg-primary-purple border-none rounded-button font-sans font-normal text-base leading-[22px] text-white cursor-pointer transition-colors duration-200 hover:bg-button-submitHover disabled:cursor-not-allowed disabled:opacity-50"
                         >
                             {isDeleting ? 'Removendo...' : 'Confirmar'}
                         </button>
@@ -86,4 +85,6 @@ export function DeleteModal({
             </div>
         </div>
     )
+
+    return createPortal(modalContent, document.body)
 }
