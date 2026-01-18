@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useSearchHistory } from '../../hooks/useSearchHistory'
+import { useEscapeKey } from '../../hooks/useEscapeKey'
 
 export function useSearchBar(onClose: () => void) {
     const navigate = useNavigate()
@@ -40,16 +41,7 @@ export function useSearchBar(onClose: () => void) {
         return () => document.removeEventListener('mousedown', handleClickOutside)
     }, [onClose])
 
-    useEffect(() => {
-        function handleEscape(event: KeyboardEvent) {
-            if (event.key === 'Escape') {
-                onClose()
-            }
-        }
-
-        document.addEventListener('keydown', handleEscape)
-        return () => document.removeEventListener('keydown', handleEscape)
-    }, [onClose])
+    useEscapeKey(onClose)
 
     const handleSubmit = useCallback((e: React.FormEvent) => {
         e.preventDefault()
