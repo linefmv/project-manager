@@ -29,7 +29,70 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px white inset !important;
     -webkit-text-fill-color: #1E1E1E !important;
     transition: background-color 5000s ease-in-out 0s;
+}
+
+:focus-visible {
+    outline: 2px solid #695CCD;
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 2px solid #695CCD;
+    outline-offset: 2px;
+}
+
+/* Remove outline padrão em favor do focus-visible */
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Reduz movimento para usuários com preferência */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Toast customization */
+.Toastify__toast {
+    font-family: 'Encode Sans Semi Expanded', sans-serif;
+    border-radius: 8px;
+}
+
+.Toastify__toast--success {
+    background: #695CCD;
+    color: white;
+}
+
+.Toastify__toast--success .Toastify__progress-bar {
+    background: #FFB23D;
+}
+
+.Toastify__toast--error {
+    background: #C40000;
+    color: white;
+}
+
+.Toastify__toast--error .Toastify__progress-bar {
+    background: #ff6b6b;
+}
+
+.Toastify__close-button {
+    color: white;
+    opacity: 0.8;
+}
+
+.Toastify__close-button:hover {
+    opacity: 1;
 }
