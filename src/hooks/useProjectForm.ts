@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { useState, useEffect, useCallback } from 'react'
 import type { CreateProjectInput } from '../types/project'
+import { validateName, validateClient, validateStartDate, validateEndDate } from '../utils/validators'
 
 interface UseProjectFormOptions {
     defaultValues?: Partial<CreateProjectInput>
@@ -54,36 +55,9 @@ export function useProjectForm({ defaultValues, onSubmit }: UseProjectFormOption
     const minDate = getTodayDateString()
     const startDateValue = watch('startDate')
 
-    const validateName = (value: string) => {
-        const trimmed = value.trim()
-        if (!trimmed) return 'Por favor, digite ao menos duas palavras'
-        const words = trimmed.split(/\s+/).filter(word => word.length > 0)
-        return words.length >= 2 || 'Por favor, digite ao menos duas palavras'
-    }
+    const validateStartDateFn = (value: string) => validateStartDate(value, minDate)
 
-    const validateClient = (value: string) => {
-        const trimmed = value.trim()
-        if (!trimmed) return 'Por favor, digite ao menos uma palavra'
-        const words = trimmed.split(/\s+/).filter(word => word.length > 0)
-        return words.length >= 1 || 'Por favor, digite ao menos uma palavra'
-    }
-
-    const validateStartDate = (value: string) => {
-        if (value < minDate) {
-            return 'A data não pode ser no passado'
-        }
-        return true
-    }
-
-    const validateEndDate = (value: string) => {
-        if (value < minDate) {
-            return 'A data não pode ser no passado'
-        }
-        if (startDateValue && value < startDateValue) {
-            return 'A data final deve ser após a data de início'
-        }
-        return true
-    }
+    const validateEndDateFn = (value: string) => validateEndDate(value, minDate, startDateValue)
 
     const register = {
         name: formRegister('name', {
@@ -96,11 +70,11 @@ export function useProjectForm({ defaultValues, onSubmit }: UseProjectFormOption
         }),
         startDate: formRegister('startDate', {
             required: 'Selecione uma data válida',
-            validate: validateStartDate,
+            validate: validateStartDateFn,
         }),
         endDate: formRegister('endDate', {
             required: 'Selecione uma data válida',
-            validate: validateEndDate,
+            validate: validateEndDateFn,
         }),
     }
 
