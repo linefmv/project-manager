@@ -1,5 +1,6 @@
 import { forwardRef, useId } from 'react'
 import { CalendarIcon } from './CalendarIcon'
+import { FormFieldWrapper, useFormFieldStyles } from '../FormFieldWrapper'
 
 interface FormDateInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string
@@ -12,25 +13,16 @@ export const FormDateInput = forwardRef<HTMLInputElement, FormDateInputProps>(
     ({ label, error, required, variant = 'start', className = '', id, ...props }, ref) => {
         const generatedId = useId()
         const inputId = id || generatedId
-
         const hasError = Boolean(error)
-        const borderColor = hasError ? 'border-error-border' : 'border-border-input'
-        const labelColor = hasError ? 'text-error-label' : 'text-primary-purple'
-        const textColor = hasError ? 'text-error-text' : 'text-text-primary'
-        const requiredColor = hasError ? 'text-error-text' : 'text-text-secondary'
+        const { borderColor, textColor, requiredColor } = useFormFieldStyles(hasError)
 
         return (
-            <div className="flex flex-col gap-2">
-                <label htmlFor={inputId} className="flex items-end gap-2">
-                    <span className={`text-lg leading-[22px] font-medium ${labelColor}`}>
-                        {label}
-                    </span>
-                    {required && (
-                        <span className={`text-sm leading-[22px] ${requiredColor}`}>
-                            (Obrigatório)
-                        </span>
-                    )}
-                </label>
+            <FormFieldWrapper
+                label={label}
+                error={error}
+                required={required}
+                htmlFor={inputId}
+            >
                 <div className="relative">
                     <input
                         id={inputId}
@@ -62,12 +54,7 @@ export const FormDateInput = forwardRef<HTMLInputElement, FormDateInputProps>(
                         />
                     </div>
                 </div>
-                {error && (
-                    <span className="text-sm leading-[22px] text-error-text">
-                        {error}
-                    </span>
-                )}
-            </div>
+            </FormFieldWrapper>
         )
     }
 )

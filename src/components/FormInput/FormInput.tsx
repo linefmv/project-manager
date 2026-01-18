@@ -1,4 +1,5 @@
-import { forwardRef } from 'react'
+import { forwardRef, useId } from 'react'
+import { FormFieldWrapper, useFormFieldStyles } from '../FormFieldWrapper'
 
 interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string
@@ -7,26 +8,21 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
-    ({ label, error, required, className = '', ...props }, ref) => {
+    ({ label, error, required, className = '', id, ...props }, ref) => {
+        const generatedId = useId()
+        const inputId = id || generatedId
         const hasError = Boolean(error)
-        const borderColor = hasError ? 'border-error-border' : 'border-border-input'
-        const labelColor = hasError ? 'text-error-label' : 'text-primary-purple'
-        const textColor = hasError ? 'text-error-text' : 'text-text-primary'
-        const requiredColor = hasError ? 'text-error-text' : 'text-text-secondary'
+        const { borderColor, textColor } = useFormFieldStyles(hasError)
 
         return (
-            <div className="flex flex-col gap-2">
-                <label className="flex items-end gap-2">
-                    <span className={`text-lg leading-[22px] font-medium ${labelColor}`}>
-                        {label}
-                    </span>
-                    {required && (
-                        <span className={`text-sm leading-[22px] ${requiredColor}`}>
-                            (Obrigatório)
-                        </span>
-                    )}
-                </label>
+            <FormFieldWrapper
+                label={label}
+                error={error}
+                required={required}
+                htmlFor={inputId}
+            >
                 <input
+                    id={inputId}
                     ref={ref}
                     className={`
                         h-10 px-4 rounded-lg
@@ -39,12 +35,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
                     `}
                     {...props}
                 />
-                {error && (
-                    <span className="text-sm leading-[22px] text-error-text">
-                        {error}
-                    </span>
-                )}
-            </div>
+            </FormFieldWrapper>
         )
     }
 )

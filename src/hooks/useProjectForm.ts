@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import type { CreateProjectInput } from '../types/project'
 import { validateName, validateClient, validateStartDate, validateEndDate } from '../utils/validators'
 
@@ -55,10 +55,6 @@ export function useProjectForm({ defaultValues, onSubmit }: UseProjectFormOption
     const minDate = getTodayDateString()
     const startDateValue = watch('startDate')
 
-    const validateStartDateFn = (value: string) => validateStartDate(value, minDate)
-
-    const validateEndDateFn = (value: string) => validateEndDate(value, minDate, startDateValue)
-
     const register = {
         name: formRegister('name', {
             required: 'Por favor, digite ao menos duas palavras',
@@ -70,15 +66,15 @@ export function useProjectForm({ defaultValues, onSubmit }: UseProjectFormOption
         }),
         startDate: formRegister('startDate', {
             required: 'Selecione uma data válida',
-            validate: validateStartDateFn,
+            validate: (value: string) => validateStartDate(value, minDate),
         }),
         endDate: formRegister('endDate', {
             required: 'Selecione uma data válida',
-            validate: validateEndDateFn,
+            validate: (value: string) => validateEndDate(value, minDate, startDateValue),
         }),
     }
 
-    const handleCoverImageChange = useCallback(async (file: File | null) => {
+    const handleCoverImageChange = async (file: File | null) => {
         setCoverImageFile(file)
         if (file) {
             const base64 = await fileToBase64(file)
@@ -86,7 +82,7 @@ export function useProjectForm({ defaultValues, onSubmit }: UseProjectFormOption
         } else {
             setCoverImageBase64(defaultValues?.coverImage)
         }
-    }, [defaultValues?.coverImage])
+    }
 
     const hasUnsavedChanges = isDirty || coverImageFile !== null
 
@@ -102,7 +98,7 @@ export function useProjectForm({ defaultValues, onSubmit }: UseProjectFormOption
         return () => window.removeEventListener('beforeunload', handleBeforeUnload)
     }, [hasUnsavedChanges])
 
-    const onSubmitForm = handleSubmit(async (data) => {
+    const onSubmitForm = handleSubmit(async (data: ProjectFormData) => {
         try {
             const projectData: CreateProjectInput = {
                 name: data.name.trim(),
