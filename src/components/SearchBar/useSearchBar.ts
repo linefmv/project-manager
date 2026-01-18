@@ -15,9 +15,17 @@ export function useSearchBar(onClose: () => void) {
     const inputRef = useRef<HTMLInputElement>(null)
     const historyRef = useRef<HTMLDivElement>(null)
 
-    const containerRef = useClickOutside<HTMLDivElement>(onClose, [historyRef])
-
     const isValidQuery = query.trim().length >= 3
+
+    const handleClickOutside = () => {
+        if (isValidQuery) {
+            setShowHistory(false)
+        } else {
+            onClose()
+        }
+    }
+
+    const containerRef = useClickOutside<HTMLDivElement>(handleClickOutside, [historyRef])
 
     useEffect(() => {
         inputRef.current?.focus()
@@ -41,6 +49,17 @@ export function useSearchBar(onClose: () => void) {
 
         return () => clearTimeout(timeoutId)
     }, [query, navigate])
+
+    // Salva no histórico quando o usuário para de digitar (após 3+ caracteres)
+    useEffect(() => {
+        if (query.trim().length < 3) return
+
+        const timeoutId = setTimeout(() => {
+            addSearch(query.trim())
+        }, 1000)
+
+        return () => clearTimeout(timeoutId)
+    }, [query, addSearch])
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
