@@ -42,6 +42,7 @@ export function useProjectForm({ defaultValues, onSubmit }: UseProjectFormOption
         formState: { errors, isDirty, isValid, isSubmitting },
         setError,
         watch,
+        reset,
     } = useForm<ProjectFormData>({
         mode: 'all',
         defaultValues: {
@@ -51,6 +52,18 @@ export function useProjectForm({ defaultValues, onSubmit }: UseProjectFormOption
             endDate: defaultValues?.endDate || '',
         },
     })
+
+    useEffect(() => {
+        if (defaultValues) {
+            reset({
+                name: defaultValues.name || '',
+                client: defaultValues.client || '',
+                startDate: defaultValues.startDate || '',
+                endDate: defaultValues.endDate || '',
+            })
+            setCoverImageBase64(defaultValues.coverImage)
+        }
+    }, [defaultValues, reset])
 
     const minDate = getTodayDateString()
     const startDateValue = watch('startDate')

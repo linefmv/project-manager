@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { deleteProject, toggleFavorite } from '../services/api'
 import type { Project } from '../types/project'
 
@@ -30,6 +31,10 @@ export function useProjectActions({ projects, queryKeysToInvalidate }: UseProjec
                 queryClient.invalidateQueries({ queryKey: key })
             })
             setDeleteModalState({ isOpen: false, project: null })
+            toast.success('Projeto removido com sucesso!')
+        },
+        onError: () => {
+            toast.error('Erro ao remover projeto. Tente novamente.')
         },
     })
 
@@ -51,7 +56,13 @@ export function useProjectActions({ projects, queryKeysToInvalidate }: UseProjec
                 }
             })
 
-            return { previousProjects }
+            return { previousProjects, favorite }
+        },
+        onSuccess: (_data, variables) => {
+            const message = variables.favorite
+                ? 'Projeto adicionado aos favoritos!'
+                : 'Projeto removido dos favoritos.'
+            toast.success(message)
         },
         onError: (_err, _variables, context) => {
             if (context?.previousProjects) {
@@ -59,6 +70,7 @@ export function useProjectActions({ projects, queryKeysToInvalidate }: UseProjec
                     queryClient.setQueryData(queryKey, data)
                 })
             }
+            toast.error('Erro ao atualizar favorito. Tente novamente.')
         },
         onSettled: () => {
             queryKeysToInvalidate.forEach(key => {
