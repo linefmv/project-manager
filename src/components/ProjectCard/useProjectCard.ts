@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 import { useClickOutside } from '../../hooks/useClickOutside'
 import { useEscapeKey } from '../../hooks/useEscapeKey'
 
@@ -11,27 +11,22 @@ interface UseProjectCardProps {
 export function useProjectCard({ id, onEdit, onDelete }: UseProjectCardProps) {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-    const closeMenu = useCallback(() => {
-        setIsMenuOpen(false)
-    }, [])
+    const closeMenu = () => setIsMenuOpen(false)
 
     const menuRef = useClickOutside<HTMLDivElement>(closeMenu)
-
     useEscapeKey(closeMenu)
 
-    const handleMenuToggle = useCallback(() => {
-        setIsMenuOpen(prev => !prev)
-    }, [])
+    const handleMenuToggle = () => setIsMenuOpen(prev => !prev)
 
-    const handleEdit = useCallback(() => {
-        setIsMenuOpen(false)
+    const handleEdit = () => {
+        closeMenu()
         onEdit(id)
-    }, [id, onEdit])
+    }
 
-    const handleDelete = useCallback(() => {
-        setIsMenuOpen(false)
+    const handleDelete = () => {
+        closeMenu()
         onDelete(id)
-    }, [id, onDelete])
+    }
 
     return {
         isMenuOpen,

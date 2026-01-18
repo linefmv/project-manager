@@ -2,6 +2,8 @@ import { ProjectCard } from '../../components/ProjectCard/ProjectCard'
 import { EmptyState } from '../ProjectsList/components/EmptyState'
 import { DeleteModal } from '../../components/DeleteModal/DeleteModal'
 import { ProjectCardSkeleton } from '../../components/Skeleton'
+import { ProjectGrid } from '../../components/ProjectGrid'
+import { PageContainer } from '../../components/PageContainer'
 import { PlusCircleIcon, ChevronDownIcon } from '../../components/Icons'
 import { useProjects } from './useProjects'
 import type { SortOption } from '../../types/project'
@@ -36,9 +38,9 @@ export function Projects() {
 
     if (isError) {
         return (
-            <div className="w-full min-h-full flex items-center justify-center">
+            <PageContainer centered>
                 <p className="text-error-text">Erro ao carregar projetos</p>
-            </div>
+            </PageContainer>
         )
     }
 
@@ -47,22 +49,22 @@ export function Projects() {
 
     if (isLoading) {
         return (
-            <div className="w-full min-h-full flex items-center justify-center">
+            <PageContainer centered>
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-purple" />
-            </div>
+            </PageContainer>
         )
     }
 
     if (isEmpty) {
         return (
-            <div className="w-full min-h-full px-4 md:px-[42px] pt-8 md:pt-[60px] pb-8 flex items-center justify-center">
+            <PageContainer centered>
                 <EmptyState onCreateProject={handleCreateProject} />
-            </div>
+            </PageContainer>
         )
     }
 
     return (
-        <div className="w-full min-h-full px-4 md:px-[42px] pt-8 md:pt-[60px] pb-8">
+        <PageContainer>
             {isRefetching ? (
                 <>
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
@@ -72,11 +74,11 @@ export function Projects() {
                             </h1>
                         </div>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
+                    <ProjectGrid>
                         {Array.from({ length: 8 }).map((_, index) => (
                             <ProjectCardSkeleton key={index} />
                         ))}
-                    </div>
+                    </ProjectGrid>
                 </>
             ) : (
                 <>
@@ -148,7 +150,7 @@ export function Projects() {
                             </p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
+                        <ProjectGrid>
                             {projects.map((project) => (
                                 <ProjectCard
                                     key={project.id}
@@ -165,7 +167,7 @@ export function Projects() {
                                     onDelete={handleOpenDeleteModal}
                                 />
                             ))}
-                        </div>
+                        </ProjectGrid>
                     )}
                 </>
             )}
@@ -177,6 +179,6 @@ export function Projects() {
                 onConfirm={handleConfirmDelete}
                 isDeleting={isDeleting}
             />
-        </div>
+        </PageContainer>
     )
 }
