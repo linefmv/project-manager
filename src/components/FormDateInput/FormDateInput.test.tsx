@@ -31,12 +31,14 @@ describe('FormDateInput', () => {
         expect(input).toHaveAttribute('name', 'start_date')
     })
 
-    it('applies error styles to label and input', () => {
-        render(<FormDateInput label="Data de início" error="Erro" />)
-        const input = screen.getByLabelText('Data de início')
+    it('applies error styles to input while label stays purple', () => {
+        const { container } = render(<FormDateInput label="Data de início" error="Erro" required />)
+        const input = container.querySelector('input[type="date"]')
         const labelSpan = screen.getByText('Data de início')
+        const requiredSpan = screen.getByText('(Obrigatório)')
 
         expect(input).toHaveClass('border-error-border')
-        expect(labelSpan).toHaveClass('text-error-label')
+        expect(labelSpan).toHaveClass('text-primary-purple')
+        expect(requiredSpan).toHaveClass('text-error-text')
     })
 })
