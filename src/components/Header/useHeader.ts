@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 export function useHeader() {
@@ -12,16 +12,16 @@ export function useHeader() {
         setIsSearchOpen(isOnSearchPage)
     }, [isOnSearchPage])
 
-    const handleOpenSearch = useCallback(() => {
+    const handleOpenSearch = () => {
         setIsSearchOpen(true)
-    }, [])
+    }
 
-    const handleCloseSearch = useCallback(() => {
+    const handleCloseSearch = () => {
         setIsSearchOpen(false)
         if (isOnSearchPage) {
             navigate('/')
         }
-    }, [isOnSearchPage, navigate])
+    }
 
     return {
         isSearchOpen,

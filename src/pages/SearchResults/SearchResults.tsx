@@ -2,9 +2,9 @@ import { Breadcrumb } from '../../components/Breadcrumb/Breadcrumb'
 import { ProjectCard } from '../../components/ProjectCard/ProjectCard'
 import { DeleteModal } from '../../components/DeleteModal/DeleteModal'
 import { ProjectCardSkeleton } from '../../components/Skeleton'
+import { ProjectGrid } from '../../components/ProjectGrid'
+import { PageContainer } from '../../components/PageContainer'
 import { useSearchResults } from './useSearchResults'
-import { useState, useCallback } from 'react'
-import type { Project } from '../../types/project'
 
 export function SearchResults() {
     const {
@@ -14,39 +14,19 @@ export function SearchResults() {
         isLoading,
         isError,
         isDeleting,
+        deleteModalState,
         isTogglingFavorite,
         handleToggleFavorite,
         handleEdit,
-        handleDelete,
+        handleOpenDeleteModal,
+        handleCloseDeleteModal,
+        handleConfirmDelete,
         handleBack,
     } = useSearchResults()
 
-    const [deleteModalState, setDeleteModalState] = useState<{
-        isOpen: boolean
-        project: Project | null
-    }>({ isOpen: false, project: null })
-
-    const handleOpenDeleteModal = useCallback((id: string) => {
-        const project = projects.find(p => p.id === id)
-        if (project) {
-            setDeleteModalState({ isOpen: true, project })
-        }
-    }, [projects])
-
-    const handleCloseDeleteModal = useCallback(() => {
-        setDeleteModalState({ isOpen: false, project: null })
-    }, [])
-
-    const handleConfirmDelete = useCallback(() => {
-        if (deleteModalState.project) {
-            handleDelete(deleteModalState.project.id)
-            setDeleteModalState({ isOpen: false, project: null })
-        }
-    }, [deleteModalState.project, handleDelete])
-
     if (query.length < 3) {
         return (
-            <div className="w-full min-h-full px-4 md:px-[42px] pt-8 md:pt-[60px] pb-8">
+            <PageContainer>
                 <div className="mb-6 md:mb-8">
                     <Breadcrumb title="Resultado da busca" onBack={handleBack} />
                 </div>
@@ -55,13 +35,13 @@ export function SearchResults() {
                         Digite pelo menos 3 caracteres para buscar
                     </p>
                 </div>
-            </div>
+            </PageContainer>
         )
     }
 
     if (isLoading) {
         return (
-            <div className="w-full min-h-full px-4 md:px-[42px] pt-8 md:pt-[60px] pb-8">
+            <PageContainer>
                 <div className="mb-6 md:mb-8">
                     <Breadcrumb title="Resultado da busca" onBack={handleBack} />
                 </div>
@@ -70,25 +50,25 @@ export function SearchResults() {
                         Buscando "{query}"...
                     </h2>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
+                <ProjectGrid>
                     {Array.from({ length: 4 }).map((_, index) => (
                         <ProjectCardSkeleton key={index} />
                     ))}
-                </div>
-            </div>
+                </ProjectGrid>
+            </PageContainer>
         )
     }
 
     if (isError) {
         return (
-            <div className="w-full min-h-full flex items-center justify-center">
+            <PageContainer centered>
                 <p className="text-error-text">Erro ao buscar projetos</p>
-            </div>
+            </PageContainer>
         )
     }
 
     return (
-        <div className="w-full min-h-full px-4 md:px-[42px] pt-8 md:pt-[60px] pb-8">
+        <PageContainer>
             <div className="mb-6 md:mb-8">
                 <Breadcrumb title="Resultado da busca" onBack={handleBack} />
             </div>
@@ -109,7 +89,7 @@ export function SearchResults() {
                     </p>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
+                <ProjectGrid>
                     {projects.map((project) => (
                         <ProjectCard
                             key={project.id}
@@ -127,7 +107,7 @@ export function SearchResults() {
                             onDelete={handleOpenDeleteModal}
                         />
                     ))}
-                </div>
+                </ProjectGrid>
             )}
 
             <DeleteModal
@@ -137,6 +117,6 @@ export function SearchResults() {
                 onConfirm={handleConfirmDelete}
                 isDeleting={isDeleting}
             />
-        </div>
+        </PageContainer>
     )
 }
