@@ -7,8 +7,8 @@ export function Header() {
     const { isSearchOpen, handleOpenSearch, handleCloseSearch } = useHeader()
 
     return (
-        <header className={`fixed top-0 left-0 w-full h-20 shadow-[0_4px_4px_rgba(0,0,0,0.25)] z-50 transition-colors ${isSearchOpen ? 'bg-white' : 'bg-primary-darker'}`}>
-            <div className="h-full relative px-4 sm:px-6 lg:pr-[56px] lg:pl-12 xl:pl-16 2xl:pl-20">
+        <header className={`fixed top-0 left-0 w-full z-50 transition-colors ${isSearchOpen ? 'bg-white' : 'bg-primary-darker shadow-[0_4px_4px_rgba(0,0,0,0.25)]'}`}>
+            <div className={`relative ${isSearchOpen ? 'px-6' : 'h-20 px-4 sm:px-6 lg:pr-[56px] lg:pl-12 xl:pl-16 2xl:pl-20'}`}>
                 {isSearchOpen ? (
                     <SearchBar onClose={handleCloseSearch} />
                 ) : (

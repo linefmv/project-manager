@@ -1,4 +1,4 @@
-import { SearchIcon, ClockIcon, CloseIcon } from '../Icons'
+import { SearchIcon, HistoryIcon, CloseIcon } from '../Icons'
 import { useSearchBar } from './useSearchBar'
 
 interface SearchBarProps {
@@ -23,9 +23,9 @@ export function SearchBar({ onClose }: SearchBarProps) {
     const hasHistory = history.length > 0 && showHistory && query.length === 0
 
     return (
-        <div ref={containerRef} className="relative w-full h-full flex items-center">
-            <form onSubmit={handleSubmit} className="w-full">
-                <div className="relative flex items-center">
+        <div ref={containerRef} className={`w-full`}>
+            <form onSubmit={handleSubmit} className="h-20 flex items-center">
+                <div className="relative flex items-center w-full">
                     <SearchIcon
                         size={20}
                         className="absolute left-0 text-text-secondary"
@@ -42,25 +42,25 @@ export function SearchBar({ onClose }: SearchBarProps) {
                 </div>
 
                 {query.length > 0 && query.length < 3 && (
-                    <p className="absolute top-full left-0 mt-2 text-sm text-text-secondary">
+                    <p className="absolute top-20 left-6 text-sm text-text-secondary">
                         Digite pelo menos 3 caracteres
                     </p>
                 )}
             </form>
 
             {hasHistory && (
-                <div ref={historyRef} className="fixed top-20 left-0 right-0 bg-white shadow-lg z-40">
-                    <ul className="px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-20">
+                <div ref={historyRef} className="bg-white -mx-6">
+                    <ul>
                         {history.map((term) => (
-                            <li key={term} className="border-b border-border-light last:border-b-0">
-                                <div className="flex items-center gap-3 py-3 hover:bg-background-light transition-colors">
+                            <li key={term}>
+                                <div className="flex items-center py-3 px-6 border-t border-[#F4F2FF] hover:bg-background-light transition-colors">
                                     <button
                                         type="button"
                                         onClick={() => handleHistoryClick(term)}
                                         className="flex-1 flex items-center gap-3 text-left"
                                     >
-                                        <ClockIcon size={18} className="text-text-secondary flex-shrink-0" />
-                                        <span className="text-base text-text-primary truncate">
+                                        <HistoryIcon size={16} className="text-text-secondary flex-shrink-0" />
+                                        <span className="text-sm text-text-primary">
                                             {term}
                                         </span>
                                     </button>
@@ -70,7 +70,7 @@ export function SearchBar({ onClose }: SearchBarProps) {
                                         className="p-1 hover:bg-border-light rounded transition-colors"
                                         aria-label={`Remover "${term}" do histórico`}
                                     >
-                                        <CloseIcon size={14} className="text-text-secondary" />
+                                        <CloseIcon size={16} className="text-text-secondary" />
                                     </button>
                                 </div>
                             </li>
