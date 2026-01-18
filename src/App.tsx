@@ -1,14 +1,18 @@
 import { Routes, Route } from 'react-router-dom'
 import { Layout } from './components/Layout/Layout'
-import { ProjectsList } from './pages/ProjectsList/ProjectsList'
+import { Projects } from './pages/Projects/Projects'
 import { CreateProject } from './pages/CreateProject/CreateProject'
+import { EditProject } from './pages/EditProject/EditProject'
+import { SearchResults } from './pages/SearchResults/SearchResults'
 
 function App() {
     return (
         <Layout>
             <Routes>
-                <Route path="/" element={<ProjectsList />} />
+                <Route path="/" element={<Projects />} />
                 <Route path="/projects/new" element={<CreateProject />} />
+                <Route path="/projects/:id/edit" element={<EditProject />} />
+                <Route path="/search" element={<SearchResults />} />
             </Routes>
         </Layout>
     )
