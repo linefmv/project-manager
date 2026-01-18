@@ -53,15 +53,17 @@ export function SearchBar({ onClose }: SearchBarProps) {
                     <ul className="px-4 sm:px-6 lg:px-12 xl:px-16 2xl:px-20">
                         {history.map((term) => (
                             <li key={term} className="border-b border-border-light last:border-b-0">
-                                <button
-                                    type="button"
-                                    onClick={() => handleHistoryClick(term)}
-                                    className="w-full flex items-center gap-3 py-3 hover:bg-background-light transition-colors text-left"
-                                >
-                                    <ClockIcon size={18} className="text-text-secondary flex-shrink-0" />
-                                    <span className="flex-1 text-base text-text-primary truncate">
-                                        {term}
-                                    </span>
+                                <div className="flex items-center gap-3 py-3 hover:bg-background-light transition-colors">
+                                    <button
+                                        type="button"
+                                        onClick={() => handleHistoryClick(term)}
+                                        className="flex-1 flex items-center gap-3 text-left"
+                                    >
+                                        <ClockIcon size={18} className="text-text-secondary flex-shrink-0" />
+                                        <span className="text-base text-text-primary truncate">
+                                            {term}
+                                        </span>
+                                    </button>
                                     <button
                                         type="button"
                                         onClick={(e) => handleRemoveHistory(term, e)}
@@ -70,7 +72,7 @@ export function SearchBar({ onClose }: SearchBarProps) {
                                     >
                                         <CloseIcon size={14} className="text-text-secondary" />
                                     </button>
-                                </button>
+                                </div>
                             </li>
                         ))}
                     </ul>
