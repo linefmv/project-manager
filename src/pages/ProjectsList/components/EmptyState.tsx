@@ -6,7 +6,7 @@ interface EmptyStateProps {
 
 export function EmptyState({ onCreateProject }: EmptyStateProps) {
     return (
-        <div className="flex flex-col items-center justify-center w-full text-center">
+        <div className="flex flex-col items-center justify-center w-full text-center animate-fade-in">
             <h2 className="text-[24px] font-semibold text-primary-dark mb-4 font-sans leading-[30px]">
                 Nenhum projeto
             </h2>
