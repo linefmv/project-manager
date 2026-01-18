@@ -98,7 +98,7 @@ export function Projects() {
                         <select
                             value={sortOption}
                             onChange={(e) => handleSortChange(e.target.value as SortOption)}
-                            className="appearance-none w-full sm:w-[240px] h-10 px-4 pr-10 bg-white border border-border-input rounded-lg text-base text-text-primary cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-purple/20"
+                            className="appearance-none w-full sm:w-[200px] h-10 px-4 pr-10 bg-white border border-border-input rounded-lg text-base text-text-primary cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-purple/20"
                         >
                             {sortOptions.map((option) => (
                                 <option key={option.value} value={option.value}>

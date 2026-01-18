@@ -43,7 +43,7 @@ export function ProjectForm({
 }: ProjectFormProps) {
     const isDisabled = isSubmitting || !isValid
     return (
-        <form onSubmit={onSubmit} className="w-full max-w-[704px] mx-auto flex flex-col gap-6">
+        <form onSubmit={onSubmit} className="w-full max-w-[500px] mx-auto flex flex-col gap-6">
             <FormInput
                 label="Nome do projeto"
                 required

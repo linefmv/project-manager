@@ -10,7 +10,6 @@ export function SearchResults() {
     const {
         query,
         projects,
-        total,
         isLoading,
         isError,
         isDeleting,
@@ -26,7 +25,7 @@ export function SearchResults() {
     if (query.length < 3) {
         return (
             <PageContainer>
-                <div className="mb-6 md:mb-8">
+                <div className="mb-8">
                     <Breadcrumb title="Resultado da busca" onBack={handleBack} />
                 </div>
                 <div className="text-center py-12">
@@ -41,13 +40,8 @@ export function SearchResults() {
     if (isLoading) {
         return (
             <PageContainer>
-                <div className="mb-6 md:mb-8">
+                <div className="mb-8">
                     <Breadcrumb title="Resultado da busca" onBack={handleBack} />
-                </div>
-                <div className="flex items-baseline gap-2 mb-8">
-                    <h2 className="text-xl font-semibold text-text-title">
-                        Buscando "{query}"...
-                    </h2>
                 </div>
                 <ProjectGrid>
                     {Array.from({ length: 4 }).map((_, index) => (
@@ -68,17 +62,8 @@ export function SearchResults() {
 
     return (
         <PageContainer>
-            <div className="mb-6 md:mb-8">
+            <div className="mb-8">
                 <Breadcrumb title="Resultado da busca" onBack={handleBack} />
-            </div>
-
-            <div className="flex items-baseline gap-2 mb-8">
-                <h2 className="text-xl font-semibold text-text-title">
-                    Resultados para "{query}"
-                </h2>
-                <span className="text-[17px] text-primary-purple">
-                    ({total})
-                </span>
             </div>
 
             {projects.length === 0 ? (

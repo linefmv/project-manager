@@ -42,7 +42,7 @@ export function ProjectCard({
 
     return (
         <div className="w-full rounded-[16px] overflow-hidden">
-            <div className="relative h-[180px] sm:h-[200px] md:h-[231px] bg-primary-purple">
+            <div className="relative h-[200px] bg-primary-purple">
                 {coverImage ? (
                     <img
                         src={coverImage}
@@ -55,14 +55,14 @@ export function ProjectCard({
                     </div>
                 )}
 
-                <div className="absolute bottom-3 right-4 flex items-center gap-2">
+                <div className="absolute bottom-3 right-3 flex items-center gap-2">
                     <button
                         onClick={() => onToggleFavorite(id)}
                         className="drop-shadow-md transition-transform hover:scale-110"
                         aria-label={isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
                     >
                         <StarIcon
-                            size={20}
+                            size={24}
                             filled={isFavorite}
                             className={`transition-colors ${isFavorite ? 'text-accent-orange' : 'text-white'}`}
                         />
@@ -74,7 +74,7 @@ export function ProjectCard({
                             className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-md"
                             aria-label="Abrir menu de opções"
                         >
-                            <MoreIcon size={16} className="text-primary-purple" />
+                            <MoreIcon size={18} className="text-primary-purple" />
                         </button>
 
                         {isMenuOpen && (
@@ -96,16 +96,16 @@ export function ProjectCard({
                     <span className="font-bold">Cliente:</span> {searchQuery ? highlightText(client, searchQuery) : client}
                 </p>
 
-                <div className="border-t border-border-light pt-4 flex flex-col gap-2">
-                    <div className="flex items-center gap-3">
-                        <CalendarIcon size={24} variant="start" className="text-text-secondary" />
+                <div className="border-t border-border-light pt-4 flex flex-col gap-[18px]">
+                    <div className="flex items-center gap-2">
+                        <CalendarIcon size={20} variant="start" className="text-text-secondary" />
                         <span className="text-base leading-5 text-text-secondary">
                             {formatDate(startDate)}
                         </span>
                     </div>
 
-                    <div className="flex items-center gap-3">
-                        <CalendarIcon size={24} variant="end" className="text-text-secondary" />
+                    <div className="flex items-center gap-2">
+                        <CalendarIcon size={20} variant="end" className="text-text-secondary" />
                         <span className="text-base leading-5 text-text-secondary">
                             {formatDate(endDate)}
                         </span>

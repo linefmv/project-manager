@@ -15,7 +15,7 @@ export function Breadcrumb({ title, onBack }: BreadcrumbProps) {
                 <ArrowLeft className="w-4 h-4" strokeWidth={2} />
                 <span className="text-base leading-5 font-normal">Voltar</span>
             </button>
-            <h1 className="text-2xl leading-[30px] font-semibold text-text-title">
+            <h1 className="text-2xl leading-[30px] font-semibold text-primary-purple">
                 {title}
             </h1>
         </div>

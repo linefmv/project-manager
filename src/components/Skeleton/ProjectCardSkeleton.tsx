@@ -3,7 +3,7 @@ import { Skeleton } from './Skeleton'
 export function ProjectCardSkeleton() {
     return (
         <div className="w-full rounded-[16px] overflow-hidden">
-            <Skeleton className="h-[180px] sm:h-[200px] md:h-[231px] rounded-none" />
+            <Skeleton className="h-[200px] rounded-none" />
 
             <div className="bg-white border border-border-default border-t-0 rounded-b-[16px] p-6">
                 <Skeleton className="h-6 w-3/4 mb-2" />
