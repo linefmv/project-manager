@@ -41,11 +41,7 @@ export function SearchBar({ onClose }: SearchBarProps) {
                     />
                 </div>
 
-                {query.length > 0 && query.length < 3 && (
-                    <p className="absolute top-20 left-6 text-sm text-text-secondary">
-                        Digite pelo menos 3 caracteres
-                    </p>
-                )}
+
             </form>
 
             {hasHistory && (

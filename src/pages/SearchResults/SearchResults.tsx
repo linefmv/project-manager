@@ -67,8 +67,8 @@ export function SearchResults() {
             </div>
 
             {projects.length === 0 ? (
-                <div className="text-center py-12">
-                    <p className="text-text-secondary">
+                <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
+                    <p className="text-text-secondary text-lg">
                         Nenhum projeto encontrado para "{query}"
                     </p>
                 </div>
