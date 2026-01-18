@@ -14,7 +14,7 @@ export const FormDateInput = forwardRef<HTMLInputElement, FormDateInputProps>(
         const generatedId = useId()
         const inputId = id || generatedId
         const hasError = Boolean(error)
-        const { borderColor, textColor, requiredColor } = useFormFieldStyles(hasError)
+        const { borderColor, requiredColor } = useFormFieldStyles(hasError)
 
         return (
             <FormFieldWrapper
@@ -30,17 +30,15 @@ export const FormDateInput = forwardRef<HTMLInputElement, FormDateInputProps>(
                         type="date"
                         className={`
                             h-10 px-4 pr-12 rounded w-full
-                            bg-white
+                            bg-white cursor-pointer
                             border ${borderColor}
-                            text-base leading-[22px] ${textColor}
+                            text-base leading-[22px] text-text-primary
                             focus:outline-none focus:ring-2 focus:ring-primary-purple/20
                             [&::-webkit-calendar-picker-indicator]:absolute
-                            [&::-webkit-calendar-picker-indicator]:right-0
-                            [&::-webkit-calendar-picker-indicator]:top-0
-                            [&::-webkit-calendar-picker-indicator]:bottom-0
+                            [&::-webkit-calendar-picker-indicator]:inset-0
                             [&::-webkit-calendar-picker-indicator]:opacity-0
                             [&::-webkit-calendar-picker-indicator]:cursor-pointer
-                            [&::-webkit-calendar-picker-indicator]:w-12
+                            [&::-webkit-calendar-picker-indicator]:w-full
                             [&::-webkit-calendar-picker-indicator]:h-full
                             ${className}
                         `}
@@ -60,3 +58,4 @@ export const FormDateInput = forwardRef<HTMLInputElement, FormDateInputProps>(
 )
 
 FormDateInput.displayName = 'FormDateInput'
+
