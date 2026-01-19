@@ -5,4 +5,4 @@ export const API_ENDPOINTS = {
     projectById: (id: string) => `/projects/${id}`,
     projectFavorite: (id: string) => `/projects/${id}/favorite`,
     projectSearch: '/projects/search',
-} as const
+}
