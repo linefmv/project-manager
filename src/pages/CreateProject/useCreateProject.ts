@@ -13,6 +13,7 @@ export function useCreateProject() {
         try {
             await createProject(data)
             await queryClient.invalidateQueries({ queryKey: ['projects'] })
+            await queryClient.invalidateQueries({ queryKey: ['search'] })
             toast.success('Projeto criado com sucesso!')
             navigate('/')
         } catch {

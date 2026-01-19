@@ -12,7 +12,7 @@ interface DeleteModalState {
 
 interface UseProjectActionsOptions {
     projects: Project[]
-    queryKeysToInvalidate: string[][]
+    queryKeysToInvalidate: (string | boolean | undefined)[][]
 }
 
 export function useProjectActions({ projects, queryKeysToInvalidate }: UseProjectActionsOptions) {
@@ -43,8 +43,10 @@ export function useProjectActions({ projects, queryKeysToInvalidate }: UseProjec
             toggleFavorite(id, favorite),
         onMutate: async ({ id, favorite }) => {
             await queryClient.cancelQueries({ queryKey: ['projects'] })
+            await queryClient.cancelQueries({ queryKey: ['search'] })
 
             const previousProjects = queryClient.getQueriesData({ queryKey: ['projects'] })
+            const previousSearch = queryClient.getQueriesData({ queryKey: ['search'] })
 
             queryClient.setQueriesData({ queryKey: ['projects'] }, (old: { projects: Project[] } | undefined) => {
                 if (!old) return old
@@ -56,7 +58,17 @@ export function useProjectActions({ projects, queryKeysToInvalidate }: UseProjec
                 }
             })
 
-            return { previousProjects, favorite }
+            queryClient.setQueriesData({ queryKey: ['search'] }, (old: { projects: Project[]; total: number } | undefined) => {
+                if (!old) return old
+                return {
+                    ...old,
+                    projects: old.projects.map(p =>
+                        p.id === id ? { ...p, favorite } : p
+                    )
+                }
+            })
+
+            return { previousProjects, previousSearch, favorite }
         },
         onSuccess: (_data, variables) => {
             const message = variables.favorite
@@ -67,6 +79,11 @@ export function useProjectActions({ projects, queryKeysToInvalidate }: UseProjec
         onError: (_err, _variables, context) => {
             if (context?.previousProjects) {
                 context.previousProjects.forEach(([queryKey, data]) => {
+                    queryClient.setQueryData(queryKey, data)
+                })
+            }
+            if (context?.previousSearch) {
+                context.previousSearch.forEach(([queryKey, data]) => {
                     queryClient.setQueryData(queryKey, data)
                 })
             }
