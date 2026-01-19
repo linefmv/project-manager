@@ -55,9 +55,14 @@ export default {
                     '0%': { opacity: '0', transform: 'translateY(10px)' },
                     '100%': { opacity: '1', transform: 'translateY(0)' },
                 },
+                'bounce-slow': {
+                    '0%, 100%': { transform: 'translateY(-5%)' },
+                    '50%': { transform: 'translateY(0)' },
+                }
             },
             animation: {
                 'fade-in': 'fade-in 0.3s ease-out forwards',
+                'bounce-slow': 'bounce-slow 3s infinite ease-in-out',
             },
         },
     },

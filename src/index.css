@@ -52,6 +52,17 @@ a:focus:not(:focus-visible) {
     outline: none;
 }
 
+/* Animação para o loading global */
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(400%);
+    }
+}
+
 /* Reduz movimento para usuários com preferência */
 @media (prefers-reduced-motion: reduce) {
 
