@@ -9,7 +9,7 @@
 ## Sobre o Projeto
 
 Aplicação frontend para gerenciamento de projetos. A solução oferece uma interface intuitiva e responsiva para criar, editar, organizar e buscar projetos, com foco em experiência do usuário e qualidade de código.
-
+(+infos na wiki)[
 Construída com **React 18**, **TypeScript** (strict mode), **Vite 6**, **TanStack Query v5** e **React Hook Form**.
 
 
@@ -21,14 +21,9 @@ Construída com **React 18**, **TypeScript** (strict mode), **Vite 6**, **TanSta
 
 - [Requisitos](#requisitos)
 - [Tecnologias](#tecnologias)
-- [Funcionalidades Além do Escopo](#funcionalidades-além-do-escopo)
-- [Qualidade de Código](#qualidade-de-código)
 - [Arquitetura](#arquitetura)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Testes](#testes)
 - [Deploy](#deploy)
 - [Como Executar](#como-executar)
-- [Scripts Disponíveis](#scripts-disponíveis)
 
 ---
 
