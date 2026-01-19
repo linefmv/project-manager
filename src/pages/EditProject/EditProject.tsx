@@ -1,6 +1,6 @@
 import { Breadcrumb } from '../../components/Breadcrumb/Breadcrumb'
 import { ProjectForm } from '../../components/ProjectForm/ProjectForm'
-import { ProjectFormSkeleton } from '../../components/Skeleton'
+import { Spinner } from '../../components/Spinner/Spinner'
 import { useEditProject } from './useEditProject'
 
 export function EditProject() {
@@ -25,8 +25,8 @@ export function EditProject() {
                     <Breadcrumb title="Editar projeto" onBack={handleBack} />
                 </div>
 
-                <div className="border border-border-default rounded-lg p-6 md:p-12">
-                    <ProjectFormSkeleton />
+                <div className="flex items-center justify-center min-h-[400px]">
+                    <Spinner size="lg" />
                 </div>
             </div>
         )
