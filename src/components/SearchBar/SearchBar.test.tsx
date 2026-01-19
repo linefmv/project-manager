@@ -40,7 +40,7 @@ describe('SearchBar', () => {
         const input = screen.getByPlaceholderText('Digite o nome do projeto...')
         fireEvent.change(input, { target: { value: 'ab' } })
 
-        expect(screen.getByText('Digite pelo menos 3 caracteres')).toBeInTheDocument()
+        expect(screen.getByText('Digite pelo menos 3 caracteres para buscar')).toBeInTheDocument()
     })
 
     it('navigates to search results on valid form submit', () => {

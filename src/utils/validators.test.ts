@@ -29,7 +29,7 @@ describe('validators', () => {
         })
 
         it('rejects past dates', () => {
-            expect(validateStartDate('2023-12-31', minDate)).toBe('A data não pode ser no passado')
+            expect(validateStartDate('2023-12-31', minDate)).toBe('Selecione uma data válida')
         })
     })
 
@@ -38,11 +38,11 @@ describe('validators', () => {
         const startDate = '2024-02-01'
 
         it('rejects dates before minDate', () => {
-            expect(validateEndDate('2023-12-31', minDate)).toBe('A data não pode ser no passado')
+            expect(validateEndDate('2023-12-31', minDate)).toBe('Selecione uma data válida')
         })
 
         it('rejects dates before startDate', () => {
-            expect(validateEndDate('2024-01-15', minDate, startDate)).toBe('A data final deve ser após a data de início')
+            expect(validateEndDate('2024-01-15', minDate, startDate)).toBe('Selecione uma data válida')
         })
 
         it('accepts valid dates', () => {

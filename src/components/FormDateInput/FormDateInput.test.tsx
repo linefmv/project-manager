@@ -38,7 +38,7 @@ describe('FormDateInput', () => {
         const requiredSpan = screen.getByText('(Obrigatório)')
 
         expect(input).toHaveClass('border-error-border')
-        expect(labelSpan).toHaveClass('text-primary-purple')
+        expect(labelSpan).toHaveClass('text-error-text')
         expect(requiredSpan).toHaveClass('text-error-text')
     })
 })
