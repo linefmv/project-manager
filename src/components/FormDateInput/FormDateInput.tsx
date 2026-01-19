@@ -30,15 +30,15 @@ export const FormDateInput = forwardRef<HTMLInputElement, FormDateInputProps>(
                         type="date"
                         className={`
                             h-10 px-4 pr-12 rounded w-full
-                            bg-white cursor-pointer
+                            bg-white
                             border ${borderColor}
                             text-base leading-[22px] text-text-primary
                             focus:outline-none focus:ring-2 focus:ring-primary-purple/20
                             [&::-webkit-calendar-picker-indicator]:absolute
-                            [&::-webkit-calendar-picker-indicator]:inset-0
+                            [&::-webkit-calendar-picker-indicator]:right-0
                             [&::-webkit-calendar-picker-indicator]:opacity-0
                             [&::-webkit-calendar-picker-indicator]:cursor-pointer
-                            [&::-webkit-calendar-picker-indicator]:w-full
+                            [&::-webkit-calendar-picker-indicator]:w-12
                             [&::-webkit-calendar-picker-indicator]:h-full
                             ${className}
                         `}
