@@ -93,7 +93,7 @@ export function useProjectForm({ defaultValues, onSubmit }: UseProjectFormOption
             const base64 = await fileToBase64(file)
             setCoverImageBase64(base64)
         } else {
-            setCoverImageBase64(defaultValues?.coverImage)
+            setCoverImageBase64(undefined)
         }
     }
 
@@ -120,9 +120,7 @@ export function useProjectForm({ defaultValues, onSubmit }: UseProjectFormOption
                 endDate: data.endDate,
             }
 
-            if (coverImageBase64) {
-                projectData.coverImage = coverImageBase64
-            }
+            projectData.coverImage = coverImageBase64
 
             await onSubmit(projectData)
         } catch (error) {
@@ -149,6 +147,7 @@ export function useProjectForm({ defaultValues, onSubmit }: UseProjectFormOption
         }
     })
 
+
     return {
         register,
         errors,
@@ -156,6 +155,7 @@ export function useProjectForm({ defaultValues, onSubmit }: UseProjectFormOption
         isValid,
         onSubmitForm,
         coverImageFile,
+        coverImageBase64,
         setCoverImageFile: handleCoverImageChange,
         hasUnsavedChanges,
         minDate,

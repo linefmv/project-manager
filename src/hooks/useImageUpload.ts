@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
@@ -7,6 +7,11 @@ export function useImageUpload(initialValue?: string) {
     const [preview, setPreview] = useState<string>(initialValue || '')
     const [validationError, setValidationError] = useState<string>('')
     const inputRef = useRef<HTMLInputElement>(null)
+
+    // Sync preview with value prop changes
+    useEffect(() => {
+        setPreview(initialValue || '')
+    }, [initialValue])
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, onChange: (file: File | null) => void) => {
         const file = e.target.files?.[0]
