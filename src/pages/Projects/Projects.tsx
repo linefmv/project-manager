@@ -1,5 +1,5 @@
 import { ProjectCard } from '../../components/ProjectCard/ProjectCard'
-import { EmptyState } from '../ProjectsList/components/EmptyState'
+import { EmptyState } from '../../components/EmptyState/EmptyState'
 import { DeleteModal } from '../../components/DeleteModal/DeleteModal'
 import { ProjectGrid } from '../../components/ProjectGrid'
 import { PageContainer } from '../../components/PageContainer'
