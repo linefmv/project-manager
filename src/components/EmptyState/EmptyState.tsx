@@ -1,4 +1,4 @@
-import { NewProjectButton } from '../../../components/NewProjectButton/NewProjectButton'
+import { NewProjectButton } from '../NewProjectButton/NewProjectButton'
 
 interface EmptyStateProps {
     onCreateProject?: () => void
