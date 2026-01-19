@@ -11,7 +11,7 @@ export function Layout({ children }: LayoutProps) {
     return (
         <div className="h-screen w-screen bg-background-light flex flex-col">
             <Header />
-            <main className="flex-1 w-full overflow-y-auto pt-20">
+            <main className="flex-1 w-full overflow-y-auto pt-20 relative">
                 {children}
             </main>
             <ToastContainer

@@ -3,6 +3,7 @@ import { EmptyState } from '../../components/EmptyState/EmptyState'
 import { DeleteModal } from '../../components/DeleteModal/DeleteModal'
 import { ProjectGrid } from '../../components/ProjectGrid'
 import { PageContainer } from '../../components/PageContainer'
+import { LoadingOverlay } from '../../components/LoadingOverlay/LoadingOverlay'
 import { PlusCircleIcon, ChevronDownIcon } from '../../components/Icons'
 import { useProjects } from './useProjects'
 import type { SortOption } from '../../types/project'
@@ -19,6 +20,7 @@ export function Projects() {
         totalProjects,
         isLoading,
         isError,
+        showLoading,
         showFavoritesOnly,
         sortOption,
         deleteModalState,
@@ -121,6 +123,8 @@ export function Projects() {
                     </button>
                 </div>
             </div>
+
+            {showLoading && <LoadingOverlay />}
 
             {projects.length === 0 ? (
                 <div className="text-center py-12">
