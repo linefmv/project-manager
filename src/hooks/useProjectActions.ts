@@ -28,7 +28,7 @@ export function useProjectActions({ projects, queryKeysToInvalidate }: UseProjec
         mutationFn: deleteProject,
         onSuccess: () => {
             queryKeysToInvalidate.forEach(key => {
-                queryClient.invalidateQueries({ queryKey: key })
+                queryClient.invalidateQueries({ queryKey: key, refetchType: 'all' })
             })
             setDeleteModalState({ isOpen: false, project: null })
             toast.success('Projeto removido com sucesso!')
@@ -91,7 +91,7 @@ export function useProjectActions({ projects, queryKeysToInvalidate }: UseProjec
         },
         onSettled: () => {
             queryKeysToInvalidate.forEach(key => {
-                queryClient.invalidateQueries({ queryKey: key })
+                queryClient.invalidateQueries({ queryKey: key, refetchType: 'all' })
             })
         },
     })

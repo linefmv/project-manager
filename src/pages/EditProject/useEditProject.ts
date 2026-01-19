@@ -20,9 +20,9 @@ export function useEditProject() {
         if (!id) return
         try {
             await updateProject(id, formData)
-            await queryClient.invalidateQueries({ queryKey: ['projects'] })
+            await queryClient.invalidateQueries({ queryKey: ['projects'], refetchType: 'all' })
             await queryClient.invalidateQueries({ queryKey: ['project', id] })
-            await queryClient.invalidateQueries({ queryKey: ['search'] })
+            await queryClient.invalidateQueries({ queryKey: ['search'], refetchType: 'all' })
             toast.success('Projeto atualizado com sucesso!')
             navigate('/')
         } catch {

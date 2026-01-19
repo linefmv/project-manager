@@ -12,8 +12,8 @@ export function useCreateProject() {
     const handleSubmit = async (data: CreateProjectInput) => {
         try {
             await createProject(data)
-            await queryClient.invalidateQueries({ queryKey: ['projects'] })
-            await queryClient.invalidateQueries({ queryKey: ['search'] })
+            await queryClient.invalidateQueries({ queryKey: ['projects'], refetchType: 'all' })
+            await queryClient.invalidateQueries({ queryKey: ['search'], refetchType: 'all' })
             toast.success('Projeto criado com sucesso!')
             navigate('/')
         } catch {
