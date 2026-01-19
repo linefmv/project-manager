@@ -10,6 +10,7 @@ export function SearchBar({ onClose }: SearchBarProps) {
         query,
         history,
         showHistory,
+        isValidQuery,
         inputRef,
         containerRef,
         historyRef,
@@ -41,7 +42,11 @@ export function SearchBar({ onClose }: SearchBarProps) {
                     />
                 </div>
 
-
+                {query.length > 0 && !isValidQuery && (
+                    <p className="text-xs text-text-secondary mt-1 pl-8">
+                        Digite pelo menos 3 caracteres para buscar
+                    </p>
+                )}
             </form>
 
             {hasHistory && (
