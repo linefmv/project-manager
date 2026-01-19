@@ -4,7 +4,7 @@ import { SearchBar } from '../SearchBar/SearchBar'
 import { useHeader } from './useHeader'
 
 export function Header() {
-    const { isSearchOpen, handleOpenSearch, handleCloseSearch } = useHeader()
+    const { isSearchOpen, handleOpenSearch, handleCloseSearch, shouldShowSearchIcon } = useHeader()
 
     return (
         <header className={`fixed top-0 left-0 w-full z-50 transition-colors ${isSearchOpen ? 'bg-white' : 'bg-primary-darker shadow-[0_4px_4px_rgba(0,0,0,0.25)]'}`}>
@@ -30,15 +30,17 @@ export function Header() {
                             </Link>
                         </div>
 
-                        <div className="h-full flex items-center justify-end">
-                            <button
-                                onClick={handleOpenSearch}
-                                className="p-2 hover:bg-white/10 rounded-lg transition-colors relative z-10"
-                                aria-label="Buscar projetos"
-                            >
-                                <SearchIcon size={20} className="text-white" />
-                            </button>
-                        </div>
+                        {shouldShowSearchIcon && (
+                            <div className="h-full flex items-center justify-end">
+                                <button
+                                    onClick={handleOpenSearch}
+                                    className="p-2 hover:bg-white/10 rounded-lg transition-colors relative z-10"
+                                    aria-label="Buscar projetos"
+                                >
+                                    <SearchIcon size={20} className="text-white" />
+                                </button>
+                            </div>
+                        )}
                     </>
                 )}
             </div>

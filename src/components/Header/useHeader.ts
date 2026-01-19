@@ -6,6 +6,10 @@ export function useHeader() {
     const navigate = useNavigate()
     const isOnSearchPage = location.pathname === '/search'
 
+    const isOnCreateOrEditPage =
+        location.pathname === '/projects/new' ||
+        location.pathname.match(/^\/projects\/[^/]+\/edit$/)
+
     const [isSearchOpen, setIsSearchOpen] = useState(isOnSearchPage)
 
     useEffect(() => {
@@ -27,5 +31,6 @@ export function useHeader() {
         isSearchOpen,
         handleOpenSearch,
         handleCloseSearch,
+        shouldShowSearchIcon: !isOnCreateOrEditPage,
     }
 }
