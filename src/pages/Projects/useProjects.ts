@@ -36,10 +36,11 @@ export function useProjects() {
 
     const handleToggleFavoritesFilter = () => {
         const newParams = new URLSearchParams(searchParams)
-        if (showFavoritesOnly) {
-            newParams.delete('favorito')
-        } else {
+        const willShowFavorites = !showFavoritesOnly
+        if (willShowFavorites) {
             newParams.set('favorito', 'true')
+        } else {
+            newParams.delete('favorito')
         }
         setSearchParams(newParams)
     }
