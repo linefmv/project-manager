@@ -3,7 +3,7 @@ import { ProjectForm } from '../../components/ProjectForm/ProjectForm'
 import { Spinner } from '../../components/Spinner/Spinner'
 import { useEditProject } from './useEditProject'
 
-export function EditProject() {
+export default function EditProject() {
     const {
         register,
         errors,

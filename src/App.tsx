@@ -1,21 +1,26 @@
+import { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { Layout } from './components/Layout/Layout'
-import { Projects } from './pages/Projects/Projects'
-import { CreateProject } from './pages/CreateProject/CreateProject'
-import { EditProject } from './pages/EditProject/EditProject'
-import { SearchResults } from './pages/SearchResults/SearchResults'
-import { NotFound } from './pages/NotFound/NotFound'
+import { LoadingOverlay } from './components/LoadingOverlay/LoadingOverlay'
+
+const Projects = lazy(() => import('./pages/Projects/Projects'))
+const CreateProject = lazy(() => import('./pages/CreateProject/CreateProject'))
+const EditProject = lazy(() => import('./pages/EditProject/EditProject'))
+const SearchResults = lazy(() => import('./pages/SearchResults/SearchResults'))
+const NotFound = lazy(() => import('./pages/NotFound/NotFound'))
 
 function App() {
     return (
         <Layout>
-            <Routes>
-                <Route path="/" element={<Projects />} />
-                <Route path="/projects/new" element={<CreateProject />} />
-                <Route path="/projects/:id/edit" element={<EditProject />} />
-                <Route path="/search" element={<SearchResults />} />
-                <Route path="*" element={<NotFound />} />
-            </Routes>
+            <Suspense fallback={<LoadingOverlay />}>
+                <Routes>
+                    <Route path="/" element={<Projects />} />
+                    <Route path="/projects/new" element={<CreateProject />} />
+                    <Route path="/projects/:id/edit" element={<EditProject />} />
+                    <Route path="/search" element={<SearchResults />} />
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            </Suspense>
         </Layout>
     )
 }

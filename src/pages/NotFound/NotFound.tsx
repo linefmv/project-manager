@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { FileQuestion } from 'lucide-react'
 
-export function NotFound() {
+export default function NotFound() {
     return (
         <div className="min-h-[60vh] flex flex-col items-center justify-center p-4 text-center animate-fade-in">
             <div className="bg-primary-purple/10 p-8 rounded-full mb-6 animate-bounce-slow">

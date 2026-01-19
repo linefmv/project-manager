@@ -6,7 +6,7 @@ import { ProjectGrid } from '../../components/ProjectGrid'
 import { PageContainer } from '../../components/PageContainer'
 import { useSearchResults } from './useSearchResults'
 
-export function SearchResults() {
+export default function SearchResults() {
     const {
         query,
         projects,

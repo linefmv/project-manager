@@ -2,7 +2,7 @@ import { Breadcrumb } from '../../components/Breadcrumb/Breadcrumb'
 import { ProjectForm } from '../../components/ProjectForm/ProjectForm'
 import { useCreateProject } from './useCreateProject'
 
-export function CreateProject() {
+export default function CreateProject() {
     const {
         register,
         errors,

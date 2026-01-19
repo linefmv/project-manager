@@ -14,13 +14,13 @@ const sortOptions: { value: SortOption; label: string }[] = [
     { value: 'deadline', label: 'Prazo mais próximo' },
 ]
 
-export function Projects() {
+export default function Projects() {
     const {
         projects,
         totalProjects,
         isLoading,
         isError,
-        showLoading,
+        isFetching,
         showFavoritesOnly,
         sortOption,
         deleteModalState,
@@ -124,7 +124,7 @@ export function Projects() {
                 </div>
             </div>
 
-            {showLoading && <LoadingOverlay />}
+            {isFetching && <LoadingOverlay />}
 
             {projects.length === 0 ? (
                 <div className="text-center py-12">
