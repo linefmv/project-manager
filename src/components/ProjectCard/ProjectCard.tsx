@@ -1,5 +1,4 @@
-import { StarIcon, MoreIcon, PlaceholderIcon } from '../Icons'
-import { CalendarIcon } from '../FormDateInput/CalendarIcon'
+import { StarIcon, MoreIcon, PlaceholderIcon, CalendarIcon } from '../Icons'
 import { ProjectMenu } from '../ProjectMenu/ProjectMenu'
 import { formatDate } from '../../utils/formatDate'
 import { highlightText } from '../../utils/highlight'

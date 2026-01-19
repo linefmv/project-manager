@@ -1,5 +1,5 @@
 import { forwardRef, useId } from 'react'
-import { CalendarIcon } from './CalendarIcon'
+import { CalendarIcon } from '../Icons'
 import { FormFieldWrapper, useFormFieldStyles } from '../FormFieldWrapper'
 
 interface FormDateInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
