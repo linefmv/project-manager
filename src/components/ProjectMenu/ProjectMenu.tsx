@@ -16,7 +16,7 @@ export function ProjectMenu({ onEdit, onDelete }: ProjectMenuProps) {
 
             <button
                 onClick={onEdit}
-                className="w-full flex items-center gap-2 px-4 py-2.5 text-primary-purple hover:bg-background-light transition-colors rounded-t-lg"
+                className="menu-item rounded-t-lg"
                 role="menuitem"
             >
                 <EditIcon size={20} className="text-primary-purple" aria-hidden="true" />
@@ -27,7 +27,7 @@ export function ProjectMenu({ onEdit, onDelete }: ProjectMenuProps) {
 
             <button
                 onClick={onDelete}
-                className="w-full flex items-center gap-2 px-4 py-2.5 text-primary-purple hover:bg-background-light transition-colors rounded-b-lg"
+                className="menu-item rounded-b-lg"
                 role="menuitem"
             >
                 <TrashIcon size={20} className="text-primary-purple" aria-hidden="true" />

@@ -2,6 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+    /* Botões */
+    .btn-primary {
+        @apply flex items-center justify-center gap-2 px-5 h-10 bg-primary-purple hover:bg-primary-dark text-white rounded-button transition-colors;
+    }
+
+    .btn-secondary {
+        @apply py-2.5 px-10 bg-white border border-primary-purple rounded-button text-base leading-[22px] text-primary-purple transition-colors duration-200 hover:bg-background-light disabled:cursor-not-allowed disabled:opacity-50;
+    }
+
+    .btn-confirm {
+        @apply py-2.5 px-10 bg-primary-purple border-none rounded-button text-base leading-[22px] text-white transition-colors duration-200 hover:bg-button-submitHover disabled:cursor-not-allowed disabled:opacity-50;
+    }
+
+    /* Inputs */
+    .input-select {
+        @apply appearance-none w-full h-10 px-4 pr-10 bg-white border border-border-input rounded-lg text-base text-text-primary cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-purple/20;
+    }
+
+    /* Toggle Switch */
+    .toggle-switch {
+        @apply relative w-12 h-6 rounded-full transition-colors;
+    }
+
+    .toggle-switch-thumb {
+        @apply absolute top-1 w-4 h-4 bg-white rounded-full transition-transform;
+    }
+
+    /* Modal */
+    .modal-overlay {
+        @apply fixed inset-0 w-screen h-screen flex items-center justify-center z-[9999] backdrop-blur-[5px];
+    }
+
+    .modal-backdrop {
+        @apply absolute inset-0 w-full h-full bg-[rgba(24,24,24,0.9)];
+    }
+
+    .modal-content {
+        @apply relative bg-white rounded-lg flex flex-col items-center pt-11 pb-8 px-12;
+    }
+
+    /* Menu dropdown */
+    .menu-item {
+        @apply w-full flex items-center gap-2 px-4 py-2.5 text-primary-purple hover:bg-background-light transition-colors;
+    }
+
+    /* Textos truncados */
+    .text-truncate {
+        @apply overflow-hidden text-ellipsis whitespace-nowrap;
+    }
+}
+
 * {
     margin: 0;
     padding: 0;
